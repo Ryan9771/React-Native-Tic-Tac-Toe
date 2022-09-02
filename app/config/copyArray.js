@@ -1,3 +1,4 @@
+// Copies a 2d array
 export const copyArray = (array) => {
     const res = [];
     for (let i = 0; i < 3; i++) {

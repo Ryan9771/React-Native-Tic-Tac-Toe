@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity, ImageBackground, StyleSheet, Text, View } from 'react-native';
 import BoardIcon from '../components/RenderButton';
 import { copyArray } from '../config/copyArray';
 import { grid, backgroundImage } from '../config/icons';
@@ -25,6 +25,19 @@ const Screen = () => {
     const [draw, setDraw] = useState(false);
     // Win
     const [win, setWin] = useState(false);
+
+    // Function to reset game
+    function resetGame() {
+        setGameBoard([
+            [-1, -1, -1],
+            [-1, -1, -1],
+            [-1, -1, -1]
+        ]);
+        setGameOver(false);
+        setDraw(false);
+        setPlayerTurn(false);
+        setWin(false);
+    }
 
     // Function to call game logic
     function gridClick(row, col) {
@@ -52,30 +65,29 @@ const Screen = () => {
                 setDraw(true);
                 setGameOver(true);
             }
-
             return res;
         }
-        
+
     }
 
     // Returns component
     return (
         <ImageBackground source={backgroundImage} style={styles.background}>
             <View style={styles.headerWrapper}>
-                <Text style={styles.header}>Multiplayer</Text>
+                <Text style={styles.header}>🤜🏾 Multiplayer 🤛🏾</Text>
             </View>
             <View style={styles.gridWrapper}>
                 {
-                    win && 
-                    <ConfettiCannon 
-                        count={300} 
-                        origin={{x: 100, y: 1000}} 
+                    win &&
+                    <ConfettiCannon
+                        count={300}
+                        origin={{ x: 100, y: 1000 }}
                         explosionSpeed={350}
                         fadeOut={true}
-                     />
+                    />
 
                 }
-                { gameOver && <WinnerBanner turn={playerTurn ? 1 : 2} draw={draw}/>}
+                {gameOver && <WinnerBanner turn={playerTurn ? 1 : 2} draw={draw} />}
                 <ImageBackground source={grid} style={styles.grid} resizeMode="contain">
 
                     <View style={styles.btnGrids}>
@@ -84,6 +96,7 @@ const Screen = () => {
 
                             <View style={styles.rowItems}>
                                 <BoardIcon
+                                    play={gameBoard[0][0]}
                                     row={0}
                                     col={0}
                                     clickHandler={gridClick}
@@ -184,6 +197,15 @@ const Screen = () => {
 
                 </ImageBackground>
             </View>
+            <View style={styles.reset}>
+                <TouchableOpacity
+                    style={styles.resetBtn}
+                    activeOpacity={0.6}
+                    onPress={resetGame}
+                >
+                    <Text style={styles.resetText}>Reset</Text>
+                </TouchableOpacity>
+            </View>
         </ImageBackground>
     )
 }
@@ -229,6 +251,19 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center"
+    },
+    resetBtn: {
+        width: '30%',
+        height: 30,
+        alignSelf: "center",
+        bottom: 150,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    resetText: {
+        fontSize: 22,
+        color: "#881337",
+        fontWeight: "bold"
     }
 
 })
