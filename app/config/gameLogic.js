@@ -1,3 +1,4 @@
+// Check for a horizontal win
 function checkHorizontal(array) {
     for (let i = 0; i < 3; i++) {
         if (array[i][0] !== -1 &&
@@ -9,6 +10,7 @@ function checkHorizontal(array) {
     return false;
 }
 
+// Check for a vertical win
 function checkVertical(array) {
     for (let i = 0; i < 3; i++) {
         if (array[0][i] !== -1 &&
@@ -20,6 +22,7 @@ function checkVertical(array) {
     return false;
 }
 
+// Check for a diagonal win
 function checkDiagonal(array) {
     return (array[1][1] !== -1) &&
         (
@@ -28,9 +31,21 @@ function checkDiagonal(array) {
         )
 }
 
-
+// Check for a win
 export function checkWin(array) {
     return checkHorizontal(array) ||
         checkDiagonal(array) ||
         checkVertical(array);
+}
+
+// Check if its a draw
+export function checkDraw(array) {
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            if (array[i][j] === -1) {
+                return false;
+            }
+        }
+    }
+    return true;
 }

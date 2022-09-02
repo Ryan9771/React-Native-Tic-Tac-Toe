@@ -3,11 +3,14 @@ import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import BoardIcon from '../components/RenderButton';
 import { copyArray } from '../config/copyArray';
 import { grid, backgroundImage } from '../config/icons';
-import { checkWin } from '../config/gameLogic';
+import { checkDraw, checkWin } from '../config/gameLogic';
+import ConfettiCannon from 'react-native-confetti-cannon';
+import WinnerBanner from '../components/GameOverBanner';
 
 
 // Main component for the screen
 const Screen = () => {
+
     // The gameBoard to note which cell has what
     const [gameBoard, setGameBoard] = useState([
         [-1, -1, -1],
@@ -18,6 +21,10 @@ const Screen = () => {
     const [playerTurn, setPlayerTurn] = useState(false);
     // GameOver
     const [gameOver, setGameOver] = useState(false);
+    // Draw
+    const [draw, setDraw] = useState(false);
+    // Win
+    const [win, setWin] = useState(false);
 
     // Function to call game logic
     function gridClick(row, col) {
@@ -33,11 +40,18 @@ const Screen = () => {
             setPlayerTurn(!playerTurn);
 
             /* Game Logic */
-            // Check win
+            // Check win and draw
             const win = checkWin(newArray);
-            console.log(win);
-            setGameOver(win);
+            const hasDraw = checkDraw(newArray);
 
+            if (win) {
+                setDraw(false);
+                setGameOver(true);
+                setWin(true);
+            } else if (hasDraw) {
+                setDraw(true);
+                setGameOver(true);
+            }
 
             return res;
         }
@@ -51,6 +65,17 @@ const Screen = () => {
                 <Text style={styles.header}>Multiplayer</Text>
             </View>
             <View style={styles.gridWrapper}>
+                {
+                    win && 
+                    <ConfettiCannon 
+                        count={300} 
+                        origin={{x: 100, y: 1000}} 
+                        explosionSpeed={350}
+                        fadeOut={true}
+                     />
+
+                }
+                { gameOver && <WinnerBanner turn={playerTurn ? 1 : 2} draw={draw}/>}
                 <ImageBackground source={grid} style={styles.grid} resizeMode="contain">
 
                     <View style={styles.btnGrids}>
@@ -185,11 +210,13 @@ const styles = StyleSheet.create({
     },
     header: {
         fontWeight: "bold",
-        fontSize: "25",
+        fontSize: "28",
+        fontStyle: "italic",
+        color: "#92400e"
     },
     headerWrapper: {
         position: "absolute",
-        top: 70,
+        top: 80,
         width: '100%',
         alignItems: "center",
     },
