@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
 import { ImageBackground, StyleSheet, Text, View, Image } from 'react-native';
 import BoardIcon from '../components/RenderButton';
+// import 'react-native-gesture-handler';
+import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 
+
+function copyArray(array) {
+    const res = [];
+    for (let i = 0; i < 3; i++) {
+        res.push(array[i].slice())
+    }
+    return res;
+}
 
 const backgroundImage = require('../assets/paperBackground.webp');
 const grid = require('../assets/grid.png');
@@ -9,10 +19,35 @@ const grid = require('../assets/grid.png');
 const Screen = () => {
 
     const [gameBoard, setGameBoard] = useState([
-        [-1, -1, -1],
+        [0, -1, -1],
         [-1, -1, -1],
         [-1, -1, -1]
     ]);
+
+    const [playerTurn, setPlayerTurn] = useState(false); // X -> False O -> True
+    // const [gameOver, setGameOver] = useState(false);
+
+    // Animation
+    // const scale = useSharedValue(1);
+    // const rStyle = useAnimatedStyle(()=> {
+    //     return {
+    //         transform: [
+    //             {scale: scale.value}
+    //         ]
+    //     }
+    // })
+
+    function gridClick(row, col) {
+        if (gameBoard[row][col] !== -1) {
+            // Give some error message saying its already occupied
+            console.log("This cell is occupied");
+        } else {
+            const newArray = copyArray(gameBoard);
+            newArray[row][col] = playerTurn ? 1 : 0;
+            setGameBoard(newArray);
+            setPlayerTurn(!playerTurn);
+        }
+    }
 
 
     return (
@@ -24,40 +59,58 @@ const Screen = () => {
                 <ImageBackground source={ grid } style={styles.grid} resizeMode="contain">
 
                     <View style={styles.btnGrids}>
+
                         <View style={styles.row}>
+
                             <View style={styles.rowItems}>
-                                <BoardIcon play={gameBoard[0][0]}/>
+                                <BoardIcon 
+                                    play={gameBoard[0][0]}
+                                    row = {0}
+                                    col = {0}
+                                    clickHandler = {gridClick}
+                                />
                             </View>
+
                             <View style={styles.rowItems}>
                                 <BoardIcon play={gameBoard[0][1]}/>
                             </View>
+
                             <View style={styles.rowItems}>
                                 <BoardIcon play={gameBoard[0][2]}/> 
                             </View>  
+
                         </View>
 
                         <View style={styles.row}>
+
                             <View style={styles.rowItems}>
                                 <BoardIcon play={gameBoard[1][0]}/>
                             </View>
+
                             <View style={styles.rowItems}>
                                 <BoardIcon play={gameBoard[1][1]}/>
                             </View>
+
                             <View style={styles.rowItems}>
                                 <BoardIcon play={gameBoard[1][2]}/>
                             </View>
+
                         </View>
                             
                         <View style={styles.row}>
+
                             <View style={styles.rowItems}>
                                 <BoardIcon play={gameBoard[2][0]}/>
                             </View>
+
                             <View style={styles.rowItems}>
                                 <BoardIcon play={gameBoard[2][1]}/>
                             </View>
+
                             <View style={styles.rowItems}>
                                 <BoardIcon play={gameBoard[2][2]}/>
                             </View>
+
                         </View>
                     </View>
 
