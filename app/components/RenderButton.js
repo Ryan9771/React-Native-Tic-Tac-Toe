@@ -38,11 +38,11 @@ const BoardIcon = (props) => {
 
         // Set the scale value for animation
         scale.value = 0.8;
+        scale.value = withSpring(1, { duration: 1000 })
     }
     // Event handler to activate button animation and main game logic
     const eventHandler = useAnimatedGestureHandler({
         onStart: () => runOnJS(buttonPressed)(),
-        onFinish: () => {scale.value = withSpring(1, { duration: 1000 })}
     })
 
     return (
