@@ -3,6 +3,7 @@ import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import BoardIcon from '../components/RenderButton';
 import { copyArray } from '../config/copyArray';
 import { grid, backgroundImage } from '../config/icons';
+import { checkWin } from '../config/gameLogic';
 
 
 // Main component for the screen
@@ -15,10 +16,12 @@ const Screen = () => {
     ]);
     // State for player turn. If false -> X's turn; If true -> O's turn
     const [playerTurn, setPlayerTurn] = useState(false);
+    // GameOver
+    const [gameOver, setGameOver] = useState(false);
 
     // Function to call game logic
     function gridClick(row, col) {
-        if (gameBoard[row][col] !== -1) {
+        if (gameBoard[row][col] !== -1 || gameOver) {
             // Give some error message saying its already occupied
             console.log("This cell is occupied");
             return gameBoard[row][col];
@@ -28,8 +31,17 @@ const Screen = () => {
             newArray[row][col] = res;
             setGameBoard(newArray);
             setPlayerTurn(!playerTurn);
+
+            /* Game Logic */
+            // Check win
+            const win = checkWin(newArray);
+            console.log(win);
+            setGameOver(win);
+
+
             return res;
         }
+        
     }
 
     // Returns component
@@ -50,6 +62,7 @@ const Screen = () => {
                                     row={0}
                                     col={0}
                                     clickHandler={gridClick}
+                                    gameOver={gameOver}
                                 />
                             </View>
 
@@ -59,6 +72,7 @@ const Screen = () => {
                                     row={0}
                                     col={1}
                                     clickHandler={gridClick}
+                                    gameOver={gameOver}
                                 />
                             </View>
 
@@ -68,6 +82,7 @@ const Screen = () => {
                                     row={0}
                                     col={2}
                                     clickHandler={gridClick}
+                                    gameOver={gameOver}
                                 />
                             </View>
 
@@ -81,6 +96,7 @@ const Screen = () => {
                                     row={1}
                                     col={0}
                                     clickHandler={gridClick}
+                                    gameOver={gameOver}
                                 />
                             </View>
 
@@ -90,6 +106,7 @@ const Screen = () => {
                                     row={1}
                                     col={1}
                                     clickHandler={gridClick}
+                                    gameOver={gameOver}
                                 />
                             </View>
 
@@ -99,6 +116,7 @@ const Screen = () => {
                                     row={1}
                                     col={2}
                                     clickHandler={gridClick}
+                                    gameOver={gameOver}
                                 />
                             </View>
 
@@ -112,6 +130,7 @@ const Screen = () => {
                                     row={2}
                                     col={0}
                                     clickHandler={gridClick}
+                                    gameOver={gameOver}
                                 />
                             </View>
 
@@ -121,6 +140,7 @@ const Screen = () => {
                                     row={2}
                                     col={1}
                                     clickHandler={gridClick}
+                                    gameOver={gameOver}
                                 />
                             </View>
 
@@ -130,6 +150,7 @@ const Screen = () => {
                                     row={2}
                                     col={2}
                                     clickHandler={gridClick}
+                                    gameOver={gameOver}
                                 />
                             </View>
 

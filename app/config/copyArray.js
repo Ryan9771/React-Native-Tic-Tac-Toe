@@ -5,5 +5,4 @@ export const copyArray = (array) => {
     }
     return res;
 }
-
 // export function copyArray(array) { .. } also works
