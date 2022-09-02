@@ -8,10 +8,11 @@ import Animated, {
     runOnJS,
     withSpring, 
 } from 'react-native-reanimated';
+import { cross, circle } from '../config/icons';
 
 const BoardIcon = (props) => {
 
-    const [img, setImg] = useState(require('../assets/cross.png'));
+    const [img, setImg] = useState(cross);
     const [player, setPlayer] = useState(-1);
 
     // Animation Related
@@ -31,9 +32,9 @@ const BoardIcon = (props) => {
         setPlayer(play);
         // Image uri
         if (play === 0) {
-            setImg(require('../assets/cross.png'));
+            setImg(cross);
         } else if (play === 1) {
-            setImg(require('../assets/circle.png'));
+            setImg(circle);
         }
 
         // Set the scale value for animation

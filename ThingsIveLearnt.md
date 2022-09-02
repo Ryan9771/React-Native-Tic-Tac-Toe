@@ -16,6 +16,29 @@
 ## useState
 - During the period of that function, if you try using the state's value, it'll show the *previous* value of the state. After the function is completed, it'll update. Therefore, keep whatever you want in a constant, update it but still use the same constant. 
 
+## Using functions from different files
+Use `export functionName` in the function declaration.
+> file1.js
+```
+export function1() {
+    return "hi";
+}
+
+export const sayHi = () => {
+    return "hi";
+}
+
+export const smth = "smth";
+```
+> file2.js
+```
+import { function1, sayHi, smth } from './file1';
+
+console.log( function1() );
+console.log( sayHi() );
+console.log( smth );
+```
+
 ### Things to find out / do in future
 - Find out how to animate eg: a button highlighted until released
 - Find out how to transfer one handler to another: eg: 

@@ -1,20 +1,9 @@
 import React, { useState } from 'react';
-import { ImageBackground, StyleSheet, Text, View, Image } from 'react-native';
+import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import BoardIcon from '../components/RenderButton';
+import { copyArray } from '../config/copyArray';
+import { grid, backgroundImage } from '../config/icons';
 
-// Function to copy 2d array
-function copyArray(array) {
-    const res = [];
-    for (let i = 0; i < 3; i++) {
-        res.push(array[i].slice())
-    }
-    return res;
-}
-
-// Paper like background image
-const backgroundImage = require('../assets/paperBackground.webp');
-// Grid background image
-const grid = require('../assets/grid.png');
 
 // Main component for the screen
 const Screen = () => {
