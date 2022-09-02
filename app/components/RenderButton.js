@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import { Image } from 'react-native';
 import { TapGestureHandler } from 'react-native-gesture-handler';
-import Animated, { 
-    useAnimatedStyle, 
-    useSharedValue, 
-    useAnimatedGestureHandler, 
+import Animated, {
+    useAnimatedStyle,
+    useSharedValue,
+    useAnimatedGestureHandler,
     runOnJS,
-    withSpring, 
+    withSpring,
 } from 'react-native-reanimated';
 import { cross, circle } from '../config/icons';
 
+// The board icon to render - which contains an animation on tap
 const BoardIcon = (props) => {
 
+    // The image to use
     const [img, setImg] = useState(cross);
+    // Keeping track of the player so can use in return to save code for each case
     const [player, setPlayer] = useState(-1);
 
     // Animation Related
@@ -46,10 +49,13 @@ const BoardIcon = (props) => {
         onStart: () => runOnJS(buttonPressed)(),
     })
 
+    // Note: The reason why this animation works for empty cells is cause once pressed,
+    //  all animation info is stored in styles etc.. but when the element is re-rendered
+    //  (since useState is changed), itll re-render with the animations passed in the 
+    //  Animated.View style
     return (
         <TapGestureHandler maxDurationMs={3000} onGestureEvent={eventHandler}>
-            <Animated.View style={[rStyle, {width: 80, height: 80}]}>
-                {console.log(player)}
+            <Animated.View style={[rStyle, { width: 80, height: 80 }]}>
                 {player !== -1 && <Image source={img} style={{ width: 80, height: 80 }} />}
             </Animated.View>
         </TapGestureHandler>

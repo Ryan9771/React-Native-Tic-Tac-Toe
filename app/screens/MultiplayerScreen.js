@@ -14,7 +14,7 @@ const Screen = () => {
         [-1, -1, -1]
     ]);
     // State for player turn. If false -> X's turn; If true -> O's turn
-    const [playerTurn, setPlayerTurn] = useState(false); 
+    const [playerTurn, setPlayerTurn] = useState(false);
 
     // Function to call game logic
     function gridClick(row, col) {
@@ -34,102 +34,102 @@ const Screen = () => {
 
     // Returns component
     return (
-        <ImageBackground source={ backgroundImage } style={styles.background}>
+        <ImageBackground source={backgroundImage} style={styles.background}>
             <View style={styles.headerWrapper}>
                 <Text style={styles.header}>Multiplayer</Text>
             </View>
             <View style={styles.gridWrapper}>
-                <ImageBackground source={ grid } style={styles.grid} resizeMode="contain">
+                <ImageBackground source={grid} style={styles.grid} resizeMode="contain">
 
                     <View style={styles.btnGrids}>
 
                         <View style={styles.row}>
 
                             <View style={styles.rowItems}>
-                                <BoardIcon 
-                                    row = {0}
-                                    col = {0}
-                                    clickHandler = {gridClick}
+                                <BoardIcon
+                                    row={0}
+                                    col={0}
+                                    clickHandler={gridClick}
                                 />
                             </View>
 
                             <View style={styles.rowItems}>
-                                <BoardIcon 
+                                <BoardIcon
                                     play={gameBoard[0][1]}
-                                    row = {0}
-                                    col = {1}
-                                    clickHandler = {gridClick}
+                                    row={0}
+                                    col={1}
+                                    clickHandler={gridClick}
                                 />
                             </View>
 
                             <View style={styles.rowItems}>
-                                <BoardIcon 
+                                <BoardIcon
                                     play={gameBoard[0][2]}
-                                    row = {0}
-                                    col = {2}
-                                    clickHandler = {gridClick}
-                                /> 
-                            </View>  
+                                    row={0}
+                                    col={2}
+                                    clickHandler={gridClick}
+                                />
+                            </View>
 
                         </View>
 
                         <View style={styles.row}>
 
                             <View style={styles.rowItems}>
-                                <BoardIcon 
+                                <BoardIcon
                                     play={gameBoard[1][0]}
-                                    row = {1}
-                                    col = {0}
-                                    clickHandler = {gridClick}
+                                    row={1}
+                                    col={0}
+                                    clickHandler={gridClick}
                                 />
                             </View>
 
                             <View style={styles.rowItems}>
-                                <BoardIcon 
+                                <BoardIcon
                                     play={gameBoard[1][1]}
-                                    row = {1}
-                                    col = {1}
-                                    clickHandler = {gridClick}
+                                    row={1}
+                                    col={1}
+                                    clickHandler={gridClick}
                                 />
                             </View>
 
                             <View style={styles.rowItems}>
-                                <BoardIcon 
+                                <BoardIcon
                                     play={gameBoard[1][2]}
-                                    row = {1}
-                                    col = {2}
-                                    clickHandler = {gridClick}
+                                    row={1}
+                                    col={2}
+                                    clickHandler={gridClick}
                                 />
                             </View>
 
                         </View>
-                            
+
                         <View style={styles.row}>
 
                             <View style={styles.rowItems}>
-                                <BoardIcon 
+                                <BoardIcon
                                     play={gameBoard[2][0]}
-                                    row = {2}
-                                    col = {0}
-                                    clickHandler = {gridClick}
+                                    row={2}
+                                    col={0}
+                                    clickHandler={gridClick}
                                 />
                             </View>
 
                             <View style={styles.rowItems}>
-                                <BoardIcon 
+                                <BoardIcon
                                     play={gameBoard[2][1]}
-                                    row = {2}
-                                    col = {1}
-                                    clickHandler = {gridClick}
+                                    row={2}
+                                    col={1}
+                                    clickHandler={gridClick}
                                 />
                             </View>
 
                             <View style={styles.rowItems}>
-                                <BoardIcon 
+                                <BoardIcon
                                     play={gameBoard[2][2]}
-                                    row = {2}
-                                    col = {2}
-                                    clickHandler = {gridClick}
+                                    row={2}
+                                    col={2}
+                                    clickHandler={gridClick}
                                 />
                             </View>
 
@@ -183,7 +183,6 @@ const styles = StyleSheet.create({
         alignItems: "center"
     }
 
-    
 })
 
 export default Screen;
