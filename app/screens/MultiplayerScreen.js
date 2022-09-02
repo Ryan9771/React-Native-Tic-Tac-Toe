@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { ImageBackground, StyleSheet, Text, View, Image } from 'react-native';
 import BoardIcon from '../components/RenderButton';
-// import 'react-native-gesture-handler';
-import Animated, { useSharedValue, useAnimatedStyle, withTiming } from 'react-native-reanimated';
 
 
 function copyArray(array) {
@@ -25,17 +23,6 @@ const Screen = () => {
     ]);
 
     const [playerTurn, setPlayerTurn] = useState(false); // X -> False O -> True
-    // const [gameOver, setGameOver] = useState(false);
-
-    // Animation
-    // const scale = useSharedValue(1);
-    // const rStyle = useAnimatedStyle(()=> {
-    //     return {
-    //         transform: [
-    //             {scale: scale.value}
-    //         ]
-    //     }
-    // })
 
     function gridClick(row, col) {
         if (gameBoard[row][col] !== -1) {

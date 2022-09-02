@@ -39,21 +39,20 @@ const BoardIcon = (props) => {
         }
 
         scale.value = 0.7;
-        scale.value = withSpring(1, { duration: 1000 });
         
-
+        
     }
 
     const eventHandler = useAnimatedGestureHandler({
         onStart: () => runOnJS(buttonPressed)(),
-        onEnd: () => console.log("Ended")
+        onFinish: () => {scale.value = withSpring(1, { duration: 1000 })}
     })
 
     if (props.play === -1) {
         return <View />;
     } 
     return (
-        <TapGestureHandler onGestureEvent={eventHandler}>
+        <TapGestureHandler maxDurationMs={3000} onGestureEvent={eventHandler}>
             <Animated.View style={[rStyle]}>
                 <Image 
                 source={img} 
