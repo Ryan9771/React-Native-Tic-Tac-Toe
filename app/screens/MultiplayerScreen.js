@@ -28,11 +28,12 @@ const Screen = () => {
 
     // Function to reset game
     function resetGame() {
-        setGameBoard([
+        const newArray = [
             [-1, -1, -1],
             [-1, -1, -1],
             [-1, -1, -1]
-        ]);
+        ]
+        setGameBoard(newArray);
         setGameOver(false);
         setDraw(false);
         setPlayerTurn(false);
