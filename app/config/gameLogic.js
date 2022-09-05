@@ -4,10 +4,10 @@ function checkHorizontal(array) {
         if (array[i][0] !== -1 &&
             array[i][0] === array[i][1] &&
             array[i][1] === array[i][2]) {
-            return true;
+            return [true, i + 1];
         }
     }
-    return false;
+    return [false, -1];
 }
 
 // Check for a vertical win
@@ -16,26 +16,43 @@ function checkVertical(array) {
         if (array[0][i] !== -1 &&
             array[0][i] === array[1][i] &&
             array[1][i] === array[2][i]) {
-            return true;
+            return [true, i + 4];
         }
     }
-    return false;
+    return [false, -1];
 }
 
 // Check for a diagonal win
 function checkDiagonal(array) {
-    return (array[1][1] !== -1) &&
-        (
-            (array[0][0] === array[1][1] && array[1][1] == array[2][2]) ||
-            (array[2][0] === array[1][1] && array[1][1] === array[0][2])
-        )
+    if (array[1][1] !== -1) {
+        if (array[0][0] === array[1][1] && array[1][1] == array[2][2]) {
+            return [true, 7];
+        } 
+        if (array[2][0] === array[1][1] && array[1][1] === array[0][2]) {
+            return [true, 8];
+        }
+    }
+    return [false, -1];
 }
 
 // Check for a win
 export function checkWin(array) {
-    return checkHorizontal(array) ||
-        checkDiagonal(array) ||
-        checkVertical(array);
+    const [winHorizontal, winHorizontalNum] = checkHorizontal(array);
+    if (winHorizontal) {
+        return winHorizontalNum;
+    }
+    
+    const [winVertical, winVerticalNum] = checkVertical(array);
+    if (winVertical) {
+        return winVerticalNum;
+    }
+
+    const [winDiagonal, winDiagonalNum] = checkDiagonal(array);
+    if (winDiagonal) {
+        return winDiagonalNum;
+    }
+
+    return -1;
 }
 
 // Check if its a draw

@@ -14,18 +14,24 @@ import Svg, { Line } from 'react-native-svg';
 export default WinningLine = (props) => {
     return (
         <View style={styles.square}>
-            {/* <View style={[styles.lineH, styles.winh1]} /> */}
-            {/* <View style={[styles.lineH, styles.winh2]} /> */}
-            {/* <View style={[styles.lineH, styles.winh3]} /> */}
-            {/* <View style={[styles.lineV, styles.winv1]} /> */}
-            {/* <View style={[styles.lineV, styles.winv2]} /> */}
-            {/* <View style={[styles.lineV, styles.winv3]} /> */}
-            {/* <Svg height="900" width="900">
-                <Line x1="30" y1="50" x2="350" y2="340" stroke="red" strokeWidth="2.5" />
-            </Svg> */}
-            <Svg height="900" width="900">
-                <Line x1="30" y1="340" x2="350" y2="60" stroke="red" strokeWidth="2.5" />
-            </Svg>
+            { props.win_num == 1 && <View style={[styles.lineH, styles.win1]} /> }
+            { props.win_num == 2 && <View style={[styles.lineH, styles.win2]} /> }
+            { props.win_num == 3 && <View style={[styles.lineH, styles.win3]} /> }
+            { props.win_num == 4 && <View style={[styles.lineV, styles.win4]} /> }
+            { props.win_num == 5 && <View style={[styles.lineV, styles.win5]} /> }
+            { props.win_num == 6 && <View style={[styles.lineV, styles.win6]} /> }
+            {
+                props.win_num == 7 && 
+                <Svg height="900" width="900">
+                    <Line x1="30" y1="50" x2="350" y2="340" stroke="red" strokeWidth="2.5" />
+                </Svg> 
+            }
+            {
+                props.win_num == 8 &&
+                <Svg height="900" width="900">
+                    <Line x1="30" y1="340" x2="350" y2="60" stroke="red" strokeWidth="2.5" />
+                </Svg>
+            }
         </View>
     );
 }
@@ -55,22 +61,22 @@ const styles = StyleSheet.create({
         top: 30,
         // Play with z index
     },
-    winh1: {
+    win1: {
         top: 90
     },
-    winh2: {
+    win2: {
         top: 195
     },
-    winh3: {
+    win3: {
         top: 300
     },
-    winv1: {
+    win4: {
         left: 62,
     },
-    winv2: {
+    win5: {
         left: 195,
     },
-    winv3: {
+    win6: {
         left: 322
     }
 })

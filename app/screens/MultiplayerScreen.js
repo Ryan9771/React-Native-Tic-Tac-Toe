@@ -24,7 +24,7 @@ const Screen = () => {
     // Draw
     const [draw, setDraw] = useState(false);
     // Win
-    const [win, setWin] = useState(false);
+    const [win, setWin] = useState(-1);
 
     // Function to reset game
     function resetGame() {
@@ -34,13 +34,13 @@ const Screen = () => {
         setGameOver(false);
         setDraw(false);
         setPlayerTurn(false);
-        setWin(false);
+        setWin(-1);
     }
 
     // Function to call game logic
     function gridClick(row, col) {
         if (gameBoard[row][col] !== -1 || gameOver) {
-            // Give some error message saying its already occupied
+            // TODO: Give some error message saying its already occupied
             console.log("This cell is occupied");
             return gameBoard[row][col];
         } else {
@@ -52,13 +52,13 @@ const Screen = () => {
 
             /* Game Logic */
             // Check win and draw
-            const win = checkWin(newArray);
+            const win_num = checkWin(newArray);
             const hasDraw = checkDraw(newArray);
 
-            if (win) {
+            if (win_num !== - 1) {
                 setDraw(false);
                 setGameOver(true);
-                setWin(true);
+                setWin(win_num);
             } else if (hasDraw) {
                 setDraw(true);
                 setGameOver(true);
@@ -81,7 +81,7 @@ const Screen = () => {
 
                 {/* Things that appear on win condition */}
                 {
-                    win &&
+                    (win !== -1) &&
                     <ConfettiCannon
                         count={300}
                         origin={{ x: 100, y: 1000 }}
@@ -91,7 +91,7 @@ const Screen = () => {
 
                 }
                 {gameOver && <GameOverBanner turn={playerTurn ? 1 : 2} draw={draw} />}
-                <WinningLine />
+                <WinningLine win_num={win}/>
 
 
                 <ImageBackground source={grid} style={styles.grid} resizeMode="contain">
