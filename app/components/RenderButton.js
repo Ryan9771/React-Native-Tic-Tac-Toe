@@ -13,9 +13,6 @@ import { cross, circle } from '../config/icons';
 // The board icon to render - which contains an animation on tap
 const BoardIcon = (props) => {
 
-    // The image to use
-    const [img, setImg] = useState(cross);
-
     // Animation Related
     const scale = useSharedValue(1);
 

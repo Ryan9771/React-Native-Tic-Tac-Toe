@@ -22,7 +22,7 @@ export default GameOverBanner = (props) => {
             ],
             opacity: progress.value / 43
         }
-    })
+    }, [])
 
     useEffect(() => {
         progress.value = withSpring(43, { duration: 700 })

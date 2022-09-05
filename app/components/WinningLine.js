@@ -1,21 +1,35 @@
 // Draws a line through the winning combination 
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import Animated, { 
     useAnimatedStyle, 
     useSharedValue, 
-    withSpring 
+    withSpring, 
+    withTiming
 } from 'react-native-reanimated';
 import Svg, { Line } from 'react-native-svg';
 
 
-// We will define props.winList to be a list of booleans to see which cond won
 export default WinningLine = (props) => {
+
+    const scale = useSharedValue(10);
+
+    const rStyle = useAnimatedStyle(() => {
+        return {
+            width: scale.value
+        }
+    }, [])
+
+    useEffect(() => {
+        scale.value = withTiming('80%', { duration: 3000 });
+    }, [])
+
     return (
         <View style={styles.square}>
-            { props.win_num == 1 && <View style={[styles.lineH, styles.win1]} /> }
-            { props.win_num == 2 && <View style={[styles.lineH, styles.win2]} /> }
+            {/* win_num == 1 when the top row is the winning row */}
+            { props.win_num == 1 && <Animated.View style={[rStyle, styles.lineH, styles.win1]} /> }
+            { props.win_num == 2 && <View style={[rStyle.lineH, styles.win2]} /> }
             { props.win_num == 3 && <View style={[styles.lineH, styles.win3]} /> }
             { props.win_num == 4 && <View style={[styles.lineV, styles.win4]} /> }
             { props.win_num == 5 && <View style={[styles.lineV, styles.win5]} /> }
@@ -40,21 +54,18 @@ const styles = StyleSheet.create({
     square: {
         width: '100%',
         height: '50%',
-        backgroundColor: "blue",
         opacity: 0.5,
         position: "absolute",
         top: 210,
     },
     lineH: {
-        borderTopWidth: 2.5,
+        borderTopWidth: 3,
         borderTopColor: "red",
         position: "relative",
-        width: '80%',
         left: 30,
-        // Play with z index
     },
     lineV: {
-        borderLeftWidth: 2.5,
+        borderLeftWidth: 3,
         borderLeftColor: "red",
         position: "relative",
         height: '82%',
