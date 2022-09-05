@@ -7,22 +7,25 @@ import Animated, {
     useSharedValue, 
     withSpring 
 } from 'react-native-reanimated';
+import Svg, { Line } from 'react-native-svg';
 
 
 // We will define props.winList to be a list of booleans to see which cond won
 export default WinningLine = (props) => {
     return (
         <View style={styles.square}>
-            <View style={[styles.lineH, styles.winh1]} />
-            <View style={[styles.lineH, styles.winh2]} />
-            <View style={[styles.lineH, styles.winh3]} />
+            {/* <View style={[styles.lineH, styles.winh1]} /> */}
+            {/* <View style={[styles.lineH, styles.winh2]} /> */}
+            {/* <View style={[styles.lineH, styles.winh3]} /> */}
             {/* <View style={[styles.lineV, styles.winv1]} /> */}
             {/* <View style={[styles.lineV, styles.winv2]} /> */}
             {/* <View style={[styles.lineV, styles.winv3]} /> */}
-            {/* <View style={[styles.line, styles.wind1]} /> */}
-            {/* <View style={[styles.line, styles.wind2]} /> */}
-            {/* <View style={[styles.line, styles.winc1]} /> */}
-            {/* <View style={[styles.line, styles.winc2]} /> */}
+            {/* <Svg height="900" width="900">
+                <Line x1="30" y1="50" x2="350" y2="340" stroke="red" strokeWidth="2.5" />
+            </Svg> */}
+            <Svg height="900" width="900">
+                <Line x1="30" y1="340" x2="350" y2="60" stroke="red" strokeWidth="2.5" />
+            </Svg>
         </View>
     );
 }
@@ -69,17 +72,5 @@ const styles = StyleSheet.create({
     },
     winv3: {
         left: 322
-    },
-    wind1: {
-
-    },
-    wind2: {
-
-    },
-    winc1: {
-
-    },
-    winc2: {
-
-    },
+    }
 })

@@ -44,3 +44,5 @@ console.log( smth );
 - Find out how to transfer one handler to another: eg: 
     - tap ball to highlight and scale
     - Long press to drag around
+- import { Constants } from 'expo'
+    - Apparently can see status bar height and other stuff, check it out
