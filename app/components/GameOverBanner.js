@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { Text, useWindowDimensions, StyleSheet } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
 
-export default WinnerBanner = (props) => {
+export default GameOverBanner = (props) => {
 
     const progress = useSharedValue(0);
 

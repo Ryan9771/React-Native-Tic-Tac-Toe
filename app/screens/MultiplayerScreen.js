@@ -5,8 +5,8 @@ import { copyArray } from '../config/copyArray';
 import { grid, backgroundImage } from '../config/icons';
 import { checkDraw, checkWin } from '../config/gameLogic';
 import ConfettiCannon from 'react-native-confetti-cannon';
-import WinnerBanner from '../components/GameOverBanner';
-
+import GameOverBanner from '../components/GameOverBanner';
+import WinningLine from '../components/WinningLine';
 
 // Main component for the screen
 const Screen = () => {
@@ -28,11 +28,8 @@ const Screen = () => {
 
     // Function to reset game
     function resetGame() {
-        const newArray = [
-            [-1, -1, -1],
-            [-1, -1, -1],
-            [-1, -1, -1]
-        ]
+        const newArray =
+            [[-1, -1, -1], [-1, -1, -1], [-1, -1, -1]]
         setGameBoard(newArray);
         setGameOver(false);
         setDraw(false);
@@ -74,10 +71,15 @@ const Screen = () => {
     // Returns component
     return (
         <ImageBackground source={backgroundImage} style={styles.background}>
+            {/* Header*/}
             <View style={styles.headerWrapper}>
                 <Text style={styles.header}>🤜🏾 Multiplayer 🤛🏾</Text>
             </View>
+
+            {/* The Grid */}
             <View style={styles.gridWrapper}>
+
+                {/* Things that appear on win condition */}
                 {
                     win &&
                     <ConfettiCannon
@@ -88,7 +90,10 @@ const Screen = () => {
                     />
 
                 }
-                {gameOver && <WinnerBanner turn={playerTurn ? 1 : 2} draw={draw} />}
+                {gameOver && <GameOverBanner turn={playerTurn ? 1 : 2} draw={draw} />}
+                <WinningLine />
+
+
                 <ImageBackground source={grid} style={styles.grid} resizeMode="contain">
 
                     <View style={styles.btnGrids}>
@@ -198,7 +203,7 @@ const Screen = () => {
 
                 </ImageBackground>
             </View>
-            <View style={styles.reset}>
+            <View>
                 <TouchableOpacity
                     style={styles.resetBtn}
                     activeOpacity={0.6}
@@ -235,7 +240,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: "28",
         fontStyle: "italic",
-        color: "#92400e"
+        color: "#92400e",
     },
     headerWrapper: {
         position: "absolute",

@@ -15,8 +15,6 @@ const BoardIcon = (props) => {
 
     // The image to use
     const [img, setImg] = useState(cross);
-    // Keeping track of the player so can use in return to save code for each case
-    const [player, setPlayer] = useState(-1);
 
     // Animation Related
     const scale = useSharedValue(1);
@@ -31,14 +29,7 @@ const BoardIcon = (props) => {
 
     function buttonPressed() {
         // Activate the function in main
-        const play = props.clickHandler(props.row, props.col);
-        setPlayer(play);
-        // Image uri
-        if (play === 0) {
-            setImg(cross);
-        } else if (play === 1) {
-            setImg(circle);
-        }
+        props.clickHandler(props.row, props.col);
 
         // Set the scale value for animation
         scale.value = 0.8;
@@ -56,7 +47,7 @@ const BoardIcon = (props) => {
     return (
         <TapGestureHandler maxDurationMs={3000} onGestureEvent={eventHandler}>
             <Animated.View style={[rStyle, { width: 80, height: 80 }]}>
-                {player !== -1 && <Image source={img} style={{ width: 80, height: 80 }} />}
+                {props.play !== -1 && <Image source={props.play === 0 ? cross : circle} style={{ width: 80, height: 80 }} />}
             </Animated.View>
         </TapGestureHandler>
     );
