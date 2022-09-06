@@ -13,35 +13,46 @@ import Svg, { Line } from 'react-native-svg';
 
 export default WinningLine = (props) => {
 
-    const scale = useSharedValue(10);
+    const scale = useSharedValue('0%');
 
-    const rStyle = useAnimatedStyle(() => {
+    const rStyleH = useAnimatedStyle(() => {
         return {
-            width: scale.value
+            width: withTiming(scale.value , { duration: 1000 })
         }
-    }, [])
+    }, [props.win_num])
+
+    const rStyleV = useAnimatedStyle(() => {
+        return {
+            height: withTiming(scale.value, { duration: 1000 })
+        }
+    }, [props.win_num])
 
     useEffect(() => {
-        scale.value = withTiming('80%', { duration: 3000 });
-    }, [])
+        if (props.win_num > 0 && props.win_num < 4) {
+            scale.value = '80%';
+        } else if (props.win_num > 3 && props.win_num < 7) {
+            scale.value = '82%';
+        } else {
+            scale.value = '0%';
+        }
+    }, [props.win_num])
 
     return (
         <View style={styles.square}>
-            {/* win_num == 1 when the top row is the winning row */}
-            { props.win_num == 1 && <Animated.View style={[rStyle, styles.lineH, styles.win1]} /> }
-            { props.win_num == 2 && <View style={[rStyle.lineH, styles.win2]} /> }
-            { props.win_num == 3 && <View style={[styles.lineH, styles.win3]} /> }
-            { props.win_num == 4 && <View style={[styles.lineV, styles.win4]} /> }
-            { props.win_num == 5 && <View style={[styles.lineV, styles.win5]} /> }
-            { props.win_num == 6 && <View style={[styles.lineV, styles.win6]} /> }
+            { props.win_num === 1 && <Animated.View style={[rStyleH, styles.lineH, styles.win1]} /> }
+            { props.win_num === 2 && <Animated.View style={[rStyleH, styles.lineH, styles.win2]} /> }
+            { props.win_num === 3 && <Animated.View style={[rStyleH, styles.lineH, styles.win3]} /> }
+            { props.win_num === 4 && <Animated.View style={[rStyleV, styles.lineV, styles.win4]} /> }
+            { props.win_num === 5 && <Animated.View style={[rStyleV, styles.lineV, styles.win5]} /> }
+            { props.win_num === 6 && <Animated.View style={[rStyleV, styles.lineV, styles.win6]} /> }
             {
-                props.win_num == 7 && 
+                props.win_num === 7 && 
                 <Svg height="900" width="900">
                     <Line x1="30" y1="50" x2="350" y2="340" stroke="red" strokeWidth="2.5" />
                 </Svg> 
             }
             {
-                props.win_num == 8 &&
+                props.win_num === 8 &&
                 <Svg height="900" width="900">
                     <Line x1="30" y1="340" x2="350" y2="60" stroke="red" strokeWidth="2.5" />
                 </Svg>
@@ -68,7 +79,6 @@ const styles = StyleSheet.create({
         borderLeftWidth: 3,
         borderLeftColor: "red",
         position: "relative",
-        height: '82%',
         top: 30,
         // Play with z index
     },
