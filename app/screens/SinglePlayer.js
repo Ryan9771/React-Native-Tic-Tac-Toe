@@ -1,24 +1,26 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, ImageBackground, StyleSheet, Text, View } from 'react-native';
-import BoardIcon from '../components/RenderButton';
+import BoardIcon from '../components/RenderSinglePlayerButton';
 import { copyArray } from '../config/copyArray';
 import { grid, backgroundImage } from '../config/icons';
-import { checkDraw, checkWin } from '../config/gameLogicMultiplayer';
+import { checkDraw, checkWin } from '../config/gameLogicSingleplayer';
 import ConfettiCannon from 'react-native-confetti-cannon';
 import GameOverBanner from '../components/GameOverBanner';
 import WinningLine from '../components/WinningLine';
+import { bestMove } from '../config/miniMax';
 
 // Main component for the screen
 const Screen = () => {
 
     // The gameBoard to note which cell has what
     const [gameBoard, setGameBoard] = useState([
-        [-1, -1, -1],
-        [-1, -1, -1],
-        [-1, -1, -1]
+        ['-', '-', '-'],
+        ['-', '-', '-'],
+        ['-', '-', '-']
     ]);
+
     // State for player turn. If false -> X's turn; If true -> O's turn
-    const [playerTurn, setPlayerTurn] = useState(false);
+    const [playerTurn, setPlayerTurn] = useState(true);
     // GameOver
     const [gameOver, setGameOver] = useState(false);
     // Draw
@@ -28,25 +30,36 @@ const Screen = () => {
 
     // Function to reset game
     function resetGame() {
-        const newArray =
-            [[-1, -1, -1], [-1, -1, -1], [-1, -1, -1]]
+        const newArray = [
+            ['-', '-', '-'],
+            ['-', '-', '-'],
+            ['-', '-', '-']
+        ];
         setGameBoard(newArray);
         setGameOver(false);
         setDraw(false);
-        setPlayerTurn(false);
+        setPlayerTurn(true);
         setWin(-1);
     }
 
     // Function to call game logic
     function gridClick(row, col) {
-        if (gameBoard[row][col] !== -1 || gameOver) {
+        if (gameBoard[row][col] !== '-' || gameOver) {
             // TODO: Give some error message saying its already occupied
             console.log("This cell is occupied");
-            return gameBoard[row][col];
         } else {
-            const res = playerTurn ? 1 : 0;
-            const newArray = copyArray(gameBoard);
-            newArray[row][col] = res;
+            let newArray;
+            if (playerTurn) {
+                // Human turn
+                newArray = copyArray(gameBoard);
+                newArray[row][col] = 'X';
+            } else {
+                // AI Turn
+                newArray = copyArray(gameBoard);
+                console.log("I am here");
+                const location = bestMove(newArray);
+                newArray[location.i][location.j] = 'O';
+            }
             setGameBoard(newArray);
             setPlayerTurn(!playerTurn);
 
@@ -63,7 +76,6 @@ const Screen = () => {
                 setDraw(true);
                 setGameOver(true);
             }
-            return res;
         }
 
     }
@@ -73,7 +85,7 @@ const Screen = () => {
         <ImageBackground source={backgroundImage} style={styles.background}>
             {/* Header*/}
             <View style={styles.headerWrapper}>
-                <Text style={styles.header}>🤜🏾 Multiplayer 🤛🏾</Text>
+                <Text style={styles.header}>🔥 Single Player 🔥</Text>
             </View>
 
             {/* The Grid */}
