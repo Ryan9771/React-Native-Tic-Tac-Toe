@@ -1,9 +1,11 @@
 import { checkWin } from './gameLogicSingleplayer';
+import { copyArray } from './copyArray';
 
 /**
  * Returns the best move for the AI to play 
  */
-export function bestMove(board) {
+export function bestMove(boardRecieved) {
+    board = copyArray(boardRecieved);
     let bestScore = -Infinity;
     let move;
     for (let i = 0; i < 3; i++) {
