@@ -6,7 +6,6 @@ import { checkWin } from './gameLogicSingleplayer';
 export function bestMove(board) {
     let bestScore = -Infinity;
     let bestMove;
-
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
             // It is empty
@@ -16,7 +15,7 @@ export function bestMove(board) {
                 board[i][j] = '-';
                 if (score > bestScore) {
                     bestScore = score;
-                    bestMove = { i, j };
+                    bestMove = [i, j];
                 }
             }
         }
@@ -34,8 +33,8 @@ let scores = {
  * Algorithm to determine the optimal move for the AI to do (1 or 0)
  */
 function minimax(board, ai) {
-    if (checkWin(board)[0]) {
-        let winner = checkWin(board)[2];
+    if (checkWin(board)[0] > 0) {
+        let winner = checkWin(board)[1];
         return scores[winner];
     }
     // If ai is playing - we want highest score

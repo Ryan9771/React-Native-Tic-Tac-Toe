@@ -42,6 +42,23 @@ const Screen = () => {
         setWin(-1);
     }
 
+    // Function to check win or draw
+    function handleWin(newArray) {
+	    const win_num = checkWin(newArray)[0];
+        const hasDraw = checkDraw(newArray);
+   
+        if (win_num !== -1) {
+ 	        setDraw(false);
+            setGameOver(true);
+            setWin(win_num);
+        } else if (hasDraw) {
+ 	        setDraw(true);
+            setGameOver(true);
+        }
+        return win_num !== -1;
+    }
+
+
     // Function to call game logic
     function gridClick(row, col) {
         if (gameBoard[row][col] !== '-' || gameOver) {
@@ -49,33 +66,17 @@ const Screen = () => {
             console.log("This cell is occupied");
         } else {
             let newArray;
-            if (playerTurn) {
-                // Human turn
-                newArray = copyArray(gameBoard);
-                newArray[row][col] = 'X';
-            } else {
-                // AI Turn
-                newArray = copyArray(gameBoard);
-                console.log("I am here");
+	        // It'll always be human turn first, so no need for if else
+            newArray = copyArray(gameBoard);
+            newArray[row][col] = 'X';
+            if (!handleWin(newArray)) {
+                // AI Move
                 const location = bestMove(newArray);
-                newArray[location.i][location.j] = 'O';
+                newArray[location[0]][location[1]] = 'O';
+                handleWin(newArray);
             }
             setGameBoard(newArray);
-            setPlayerTurn(!playerTurn);
 
-            /* Game Logic */
-            // Check win and draw
-            const win_num = checkWin(newArray);
-            const hasDraw = checkDraw(newArray);
-
-            if (win_num !== - 1) {
-                setDraw(false);
-                setGameOver(true);
-                setWin(win_num);
-            } else if (hasDraw) {
-                setDraw(true);
-                setGameOver(true);
-            }
         }
 
     }

@@ -37,22 +37,22 @@ function checkDiagonal(array) {
 
 // Check for a win
 export function checkWin(array) {
-    const [winHorizontal, winHorizontalNum] = checkHorizontal(array);
+    const [winHorizontal, winHorizontalNum, winnerH] = checkHorizontal(array);
     if (winHorizontal) {
-        return winHorizontalNum;
+        return [winHorizontalNum, winnerH];
     }
     
-    const [winVertical, winVerticalNum] = checkVertical(array);
+    const [winVertical, winVerticalNum, winnerV] = checkVertical(array);
     if (winVertical) {
-        return winVerticalNum;
+        return [winVerticalNum, winnerV];
     }
 
-    const [winDiagonal, winDiagonalNum] = checkDiagonal(array);
+    const [winDiagonal, winDiagonalNum, winnerD] = checkDiagonal(array);
     if (winDiagonal) {
-        return winDiagonalNum;
+        return [winDiagonalNum, winnerD];
     }
 
-    return -1;
+    return [-1, -1];
 }
 
 // Check if its a draw
@@ -64,5 +64,5 @@ export function checkDraw(array) {
             }
         }
     }
-    return [true];
+    return true;
 }
