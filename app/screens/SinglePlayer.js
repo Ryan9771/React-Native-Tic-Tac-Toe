@@ -44,18 +44,18 @@ const Screen = () => {
 
     // Function to check win or draw
     function handleWin(newArray) {
-	    const win_num = checkWin(newArray)[0];
+	    const winNum = checkWin(newArray).winNum;
         const hasDraw = checkDraw(newArray);
    
-        if (win_num !== -1) {
+        if (winNum !== -1) {
  	        setDraw(false);
             setGameOver(true);
-            setWin(win_num);
+            setWin(winNum);
         } else if (hasDraw) {
  	        setDraw(true);
             setGameOver(true);
         }
-        return win_num !== -1;
+        return winNum !== -1;
     }
 
 
@@ -72,7 +72,8 @@ const Screen = () => {
             if (!handleWin(newArray)) {
                 // AI Move
                 const location = bestMove(newArray);
-                newArray[location[0]][location[1]] = 'O';
+                console.log(location);
+                newArray[location.row][location.col] = 'O';
                 handleWin(newArray);
             }
             setGameBoard(newArray);

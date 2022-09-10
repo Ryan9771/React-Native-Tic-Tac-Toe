@@ -6,18 +6,24 @@ import { copyArray } from './copyArray';
  */
 export function bestMove(boardRecieved) {
     board = copyArray(boardRecieved);
+    console.log(board);
     let bestScore = -Infinity;
     let move;
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
             // It is empty
             if (board[i][j] === '-') { 
+                console.log("Im here");
                 board[i][j] = 'O';
                 let score = minimax(board, false, 0);
+                console.log(score);
                 board[i][j] = '-';
                 if (score > bestScore) {
                     bestScore = score;
-                    move = [i, j];
+                    move = {
+                        row: i,
+                        col: j
+                    };
                 }
             }
         }
@@ -35,9 +41,9 @@ let scores = {
  * Algorithm to determine the optimal move for the AI to do (1 or 0)
  */
 function minimax(board, ai, depth) {
-    if (checkWin(board)[0] > 0) {
-        let winner = checkWin(board)[1];
-        return scores[winner];
+    const win = checkWin(board);
+    if (checkWin(board).winNum > 0) {
+        return scores[win.winner];
     }
     // If ai is playing - we want highest score
     if (ai) {

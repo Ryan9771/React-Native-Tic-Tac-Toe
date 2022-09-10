@@ -4,10 +4,18 @@ function checkHorizontal(array) {
         if (array[i][0] !== '-' &&
             array[i][0] === array[i][1] &&
             array[i][1] === array[i][2]) {
-            return [true, i + 1, array[i][0]];
+            return {
+                win: true, 
+                winNum: i+1, 
+                winner: array[i][0]
+            };
         }
     }
-    return [false, -1];
+    return {
+        win: false, 
+        winNum: -1, 
+        winner: null
+    };
 }
 
 // Check for a vertical win
@@ -16,43 +24,75 @@ function checkVertical(array) {
         if (array[0][i] !== '-' &&
             array[0][i] === array[1][i] &&
             array[1][i] === array[2][i]) {
-            return [true, i + 4], array[0][i];
+                return {
+                    win: true,
+                    winNum: i+4,
+                    winner: array[0][i]
+                };
         }
     }
-    return [false, -1];
+    return {
+        win: false, 
+        winNum: -1, 
+        winner: null
+    };
 }
 
 // Check for a diagonal win
 function checkDiagonal(array) {
     if (array[1][1] !== '-') {
         if (array[0][0] === array[1][1] && array[1][1] == array[2][2]) {
-            return [true, 7, array[1][1]];
+            return {
+                win: true,
+                winNum: 7,
+                winner: array[1][1]
+            };
         } 
         if (array[2][0] === array[1][1] && array[1][1] === array[0][2]) {
-            return [true, 8, array[1][1]];
+            return {
+                win: true,
+                winNum: 8, 
+                winner: array[1][1]
+            };
         }
     }
-    return [false, -1];
+    return {
+        win: false,
+        winNum: -1,
+        winner: null
+    };
 }
 
 // Check for a win
 export function checkWin(array) {
-    const [winHorizontal, winHorizontalNum, winnerH] = checkHorizontal(array);
-    if (winHorizontal) {
-        return [winHorizontalNum, winnerH];
+    const horizontal = checkHorizontal(array);
+    if (horizontal.win) {
+        return {
+            winNum: horizontal.winNum,
+            winner: horizontal.winner
+        }
     }
     
-    const [winVertical, winVerticalNum, winnerV] = checkVertical(array);
-    if (winVertical) {
-        return [winVerticalNum, winnerV];
+    const vertical = checkVertical(array);
+    if (vertical.win) {
+        return {
+            winNum: vertical.winNum,
+            winner: vertical.winner
+        }
     }
 
-    const [winDiagonal, winDiagonalNum, winnerD] = checkDiagonal(array);
-    if (winDiagonal) {
-        return [winDiagonalNum, winnerD];
+    const diagonal = checkDiagonal(array);
+    if (diagonal.win) {
+        return {
+            winNum: diagonal.winNum,
+            winner: diagonal.winner
+        }
     }
 
-    return [-1, -1];
+    return {
+        winNum: -1,
+        winner: null
+    };
 }
 
 // Check if its a draw
