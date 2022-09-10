@@ -55,7 +55,7 @@ const Screen = () => {
  	        setDraw(true);
             setGameOver(true);
         }
-        return winNum !== -1;
+        return winNum !== -1 || hasDraw;
     }
 
 
