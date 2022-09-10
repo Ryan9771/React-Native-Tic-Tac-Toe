@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     },
     btnText: {
         fontSize: 18,
-        fontWeight: '400'
+        fontWeight: '500'
     },
     text: {
         fontSize: 20,
