@@ -5,12 +5,12 @@ import { copyArray } from '../config/copyArray';
 import { grid, backgroundImage } from '../config/icons';
 import { checkDraw, checkWin } from '../config/gameLogicSingleplayer';
 import ConfettiCannon from 'react-native-confetti-cannon';
-import GameOverBanner from '../components/GameOverBanner';
+import GameOverBanner from '../components/GameOverBannerSinglePlayer';
 import WinningLine from '../components/WinningLine';
 import { bestMove } from '../config/miniMax';
 
 // Main component for the screen
-const Screen = () => {
+const Screen = ({ navigation }) => {
 
     // The gameBoard to note which cell has what
     const [gameBoard, setGameBoard] = useState([
@@ -63,7 +63,6 @@ const Screen = () => {
     function gridClick(row, col) {
         if (gameBoard[row][col] !== '-' || gameOver) {
             // TODO: Give some error message saying its already occupied
-            console.log("This cell is occupied");
         } else {
             let newArray;
 	        // It'll always be human turn first, so no need for if else
@@ -72,7 +71,6 @@ const Screen = () => {
             if (!handleWin(newArray)) {
                 // AI Move
                 const location = bestMove(newArray);
-                console.log(location);
                 newArray[location.row][location.col] = 'O';
                 handleWin(newArray);
             }
@@ -89,6 +87,13 @@ const Screen = () => {
             <View style={styles.headerWrapper}>
                 <Text style={styles.header}>🔥 Single Player 🔥</Text>
             </View>
+
+            <TouchableOpacity 
+                style={styles.backBtn}
+                onPress={() => navigation.navigate('Home')}
+            >
+                <Text style={styles.backBtnText}>{"< Back"}</Text>
+            </TouchableOpacity>
 
             {/* The Grid */}
             <View style={styles.gridWrapper}>
@@ -241,6 +246,15 @@ const styles = StyleSheet.create({
         height: '40%',
         flexDirection: "column",
         justifyContent: "center"
+    },
+    backBtn: {
+        position: "absolute",
+        top: 50,
+        left: 20,
+        zIndex: 1,
+    }, 
+    backBtnText: {
+        fontSize: 18,
     },
     gridWrapper: {
         flex: 1

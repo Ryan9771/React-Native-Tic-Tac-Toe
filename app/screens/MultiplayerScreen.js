@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity, ImageBackground, StyleSheet, Text, View, Button } from 'react-native';
 import BoardIcon from '../components/RenderButton';
 import { copyArray } from '../config/copyArray';
 import { grid, backgroundImage } from '../config/icons';
 import { checkDraw, checkWin } from '../config/gameLogicMultiplayer';
 import ConfettiCannon from 'react-native-confetti-cannon';
-import GameOverBanner from '../components/GameOverBanner';
+import GameOverBanner from '../components/GameOverBannerMultiplayer';
 import WinningLine from '../components/WinningLine';
 
 // Main component for the screen
-const Screen = () => {
+const Screen = ({ navigation }) => {
 
     // The gameBoard to note which cell has what
     const [gameBoard, setGameBoard] = useState([
@@ -75,6 +75,13 @@ const Screen = () => {
             <View style={styles.headerWrapper}>
                 <Text style={styles.header}>🤜🏾 Multiplayer 🤛🏾</Text>
             </View>
+
+            <TouchableOpacity 
+                style={styles.backBtn}
+                onPress={() => navigation.navigate('Home')}
+            >
+                <Text style={styles.backBtnText}>{"< Back"}</Text>
+            </TouchableOpacity>
 
             {/* The Grid */}
             <View style={styles.gridWrapper}>
@@ -221,6 +228,15 @@ const styles = StyleSheet.create({
     background: {
         flex: 1,
         justifyContent: "center",
+    },
+    backBtn: {
+        position: "absolute",
+        top: 50,
+        left: 20,
+        zIndex: 1,
+    }, 
+    backBtnText: {
+        fontSize: 18,
     },
     btnGrids: {
         width: '100%',

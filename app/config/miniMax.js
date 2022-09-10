@@ -43,32 +43,18 @@ function minimax(board, ai, depth) {
         return scores[win.winner];
     }
     // If ai is playing - we want highest score
-    if (ai) {
-        let bestScore = -Infinity;
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-                if (board[i][j] === '-') {
-                    board[i][j] = 'O';
-                    let score = minimax(board, false, depth+1);
-                    board[i][j] = '-';
-                    bestScore = Math.max(score, bestScore);
-                }
+    let bestScore = ai ? -Infinity : Infinity;
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            if (board[i][j] === '-') {
+                board[i][j] = ai ? 'O' : 'X';
+                let score = minimax(board, !ai, depth+1);
+                board[i][j] = '-';
+                bestScore = ai 
+                    ? Math.max(score, bestScore)
+                    : Math.min(score, bestScore);
             }
         }
-        return bestScore;
-    } else {
-        // It is the humans turn, so we want the least score (draw / lose)
-        let bestScore = Infinity;
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-                if (board[i][j] === '-') {
-                    board[i][j] = 'X';
-                    let score = minimax(board, true, depth+1);
-                    board[i][j] = '-'
-                    bestScore = Math.min(score, bestScore);
-                }
-            }
-        }
-        return bestScore;
     }
+    return bestScore;
 }
