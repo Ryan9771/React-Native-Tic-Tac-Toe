@@ -6,17 +6,14 @@ import { copyArray } from './copyArray';
  */
 export function bestMove(boardRecieved) {
     const board = copyArray(boardRecieved);
-    console.log(board);
     let bestScore = -Infinity;
     let move;
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
             // It is empty
             if (board[i][j] === '-') { 
-                console.log("Im here");
                 board[i][j] = 'O';
                 let score = minimax(board, false, 0);
-                console.log(score);
                 board[i][j] = '-';
                 if (score > bestScore) {
                     bestScore = score;
