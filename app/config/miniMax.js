@@ -5,7 +5,7 @@ import { copyArray } from './copyArray';
  * Returns the best move for the AI to play 
  */
 export function bestMove(boardRecieved) {
-    board = copyArray(boardRecieved);
+    const board = copyArray(boardRecieved);
     console.log(board);
     let bestScore = -Infinity;
     let move;
@@ -42,7 +42,7 @@ let scores = {
  */
 function minimax(board, ai, depth) {
     const win = checkWin(board);
-    if (checkWin(board).winNum > 0) {
+    if (win.winner) {
         return scores[win.winner];
     }
     // If ai is playing - we want highest score

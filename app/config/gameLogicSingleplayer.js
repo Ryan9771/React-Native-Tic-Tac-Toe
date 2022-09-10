@@ -89,6 +89,13 @@ export function checkWin(array) {
         }
     }
 
+    if (checkDraw(array)) {
+        return  {
+            winNum: -1,
+            winner: 'tie'
+        };
+    }
+
     return {
         winNum: -1,
         winner: null
